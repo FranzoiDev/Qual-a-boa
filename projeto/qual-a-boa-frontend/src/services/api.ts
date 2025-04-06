@@ -19,18 +19,47 @@ export const getRestaurants = async () => {
   return response.data;
 };
 
-export const createRestaurant = async (restaurant: any) => {
+export const getRestaurantById = async (id: number) => {
+  const response = await api.get(`/restaurants/${id}`);
+  return response.data;
+};
+
+export const createRestaurant = async (restaurant: {
+  cnpj: string;
+  name: string;
+  state: string;
+  city: string;
+  type: string;
+  operating_hours: string;
+  postal_code: string;
+  street_number: string;
+  endereco: string;
+}) => {
   const response = await api.post("/restaurants", restaurant);
   return response.data;
 };
 
-export const updateRestaurant = async (cnpj: string, restaurant: any) => {
-  const response = await api.put(`/restaurants/${cnpj}`, restaurant);
+export const updateRestaurant = async (
+  id: number,
+  restaurant: {
+    cnpj: string;
+    name: string;
+    state: string;
+    city: string;
+    type: string;
+    operating_hours: string;
+    postal_code: string;
+    street_number: string;
+    endereco: string;
+  }
+) => {
+  const response = await api.put(`/restaurants/${id}`, restaurant);
   return response.data;
 };
 
-export const deleteRestaurant = async (cnpj: string) => {
-  const response = await api.delete(`/restaurants/${cnpj}`);
+
+export const deleteRestaurant = async (id: number) => {
+  const response = await api.delete(`/restaurants/${id}`);
   return response.data;
 };
 
