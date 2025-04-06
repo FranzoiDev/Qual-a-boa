@@ -1,29 +1,42 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
-//import { login } from '../services/api.mock';
+
+// Simula a resposta de login
+const login = async (email: string, senha: string) => {
+  return new Promise<{ token: string }>((resolve, reject) => {
+    setTimeout(() => {
+      if (email === "teste@admin.com" && senha === "123456") {
+        resolve({ token: "mocked-jwt-token" });
+      } else {
+        reject(new Error("Credenciais inválidas"));
+      }
+    }, 500);
+  });
+};
 
 const Login = () => {
-  const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState("123456");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErro("");
+
     try {
-      const response = await api.post("/auth/login", { email, password });
-      localStorage.setItem("jwt_token", response.data.access_token);
+      const response = await login(email, senha);
+      localStorage.setItem("jwt_token", response.token);
       navigate("/dashboard");
     } catch (err) {
-      setError("E-mail ou senha inválidos");
+      setErro("E-mail ou senha inválidos.");
     }
   };
 
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="E-mail"
@@ -34,13 +47,13 @@ const Login = () => {
         <input
           type="password"
           placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
           required
         />
         <button type="submit">Entrar</button>
       </form>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {erro && <p style={{ color: "red" }}>{erro}</p>}
     </div>
   );
 };
