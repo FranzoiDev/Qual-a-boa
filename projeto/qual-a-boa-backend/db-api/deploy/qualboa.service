@@ -1,0 +1,15 @@
+[Unit]
+Description=Qual a Boa API Service
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/path/to/application
+ExecStart=/path/to/application/deploy/start_prod.sh
+Restart=always
+Environment=FLASK_ENV=production
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target 
