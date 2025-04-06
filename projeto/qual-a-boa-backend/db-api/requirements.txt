@@ -12,6 +12,8 @@ bcrypt==4.3.0  # Hashing de senhas
 redis==5.2.1
 structlog==25.2.0
 python-dotenv==1.1.0  # Gerenciamento de variáveis de ambiente
+pydantic==2.6.1  # Validação de dados
+alembic==1.13.1  # Ferramenta de migração do SQLAlchemy
 
 # Servidor WSGI para produção
 gunicorn==23.0.0
