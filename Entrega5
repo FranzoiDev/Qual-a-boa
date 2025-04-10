@@ -1,0 +1,37 @@
+Padrão Factory Method: Explicação Simplificada
+
+O texto descreve a implementação do padrão Factory Method em um projeto Flask. Vou resumir isso de forma mais clara e acessível:
+
+ Como funciona o Factory Method no projeto
+
+O padrão Factory Method está implementado principalmente em dois arquivos:
+- app/config.py: Define diferentes configurações
+- app/__init__.py: Contém o método factory que cria a aplicação
+
+Estrutura básica
+
+1. Uma classe base chamada Config que define configurações comuns para todos os ambientes
+
+2. Três classes específicas que herdam de Config:
+   - DevelopmentConfig: Para ambiente de desenvolvimento
+   - TestingConfig: Para ambiente de testes
+   - ProductionConfig: Para ambiente de produção
+
+3. Uma função factory chamada create_app() que:
+   - Recebe o nome do ambiente desejado
+   - Cria uma aplicação Flask
+   - Aplica as configurações apropriadas
+   - Configura todos os componentes necessários
+   - Retorna a aplicação pronta para uso
+
+ Como usar
+
+python
+ Para ambiente de desenvolvimento
+app = create_app('development')
+
+ Para ambiente de produção
+app = create_app('production')
+
+ Usando o ambiente padrão
+app = create_app()
